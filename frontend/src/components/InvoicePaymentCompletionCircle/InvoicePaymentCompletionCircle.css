@@ -1,0 +1,63 @@
+/* ======================= Payment Completion Circle: Styles ======================= */
+
+.completion-chart-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: var(--spacing-md);
+  border-radius: 16px;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: var(--spacing-lg);
+}
+
+.completion-chart-container {
+  flex: 1 1 200px;
+  text-align: center;
+  min-width: 160px;
+}
+
+.completion-creative-message {
+  flex: 2 1 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-style: italic;
+  color: #333;
+  text-align: center;
+  padding: 0 var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.completion-percentage-label {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  color: #004aad;
+  margin-top: var(--spacing-sm);
+}
+
+.completion-legend-box {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.completion-legend-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}

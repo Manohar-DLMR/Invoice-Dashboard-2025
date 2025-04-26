@@ -1,0 +1,38 @@
+/* ======================= Avg Days to Pay Trend Line: Styles ======================= */
+
+.avg-days-chart-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+
+.avg-days-header h3 {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #004aad;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.avg-days-chart-legend {
+  margin-top: 14px;
+  padding-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+  border-top: 1px solid #eee;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.avg-days-friendly-message {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 8px 0 16px;
+}

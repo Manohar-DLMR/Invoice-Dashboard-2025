@@ -1,0 +1,137 @@
+/* ======================= Invoice Payment Timeline: Styles ======================= */
+
+.timeline-card {
+  background-color: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+  position: relative;
+}
+
+.timeline-zigzag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding-top: 12px;
+  overflow-x: visible;
+  max-width: 100%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+.timeline-step {
+  position: relative;
+  background: #f9f9f9;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease;
+  flex-wrap: wrap;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Final Step Highlighting */
+.timeline-step.final-step {
+  border: 1px solid;
+}
+
+.timeline-step.final-step .timeline-step-box {
+  font-weight: 500;
+}
+
+.timeline-step.final-step.paid {
+  background: #e8f5e9;
+  border-color: #4CAF50;
+}
+
+.timeline-step.final-step.due {
+  background: #fff3e0;
+  border-color: #f57c00;
+}
+
+.timeline-step.final-step.overpaid {
+  background: #fce4ec;
+  border-color: #d81b60;
+}
+
+/* Step Components */
+.timeline-step-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.timeline-step-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeline-step-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.timeline-step-date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.timeline-step-note {
+  font-size: 0.85rem;
+  color: #c62828;
+  font-style: italic;
+}
+
+/* Step Positioning */
+.timeline-step.left {
+  justify-content: flex-start;
+}
+
+.timeline-step.right {
+  justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+  .timeline-zigzag-grid {
+    grid-template-columns: 1fr;
+  }
+  .timeline-step.left,
+  .timeline-step.right {
+    justify-content: flex-start;
+  }
+}
+
+/* Scroll Hints */
+.timeline-scrollable {
+  cursor: grab;
+}
+
+.timeline-scroll-hint-left,
+.timeline-scroll-hint-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.timeline-scroll-hint-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.timeline-scroll-hint-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}

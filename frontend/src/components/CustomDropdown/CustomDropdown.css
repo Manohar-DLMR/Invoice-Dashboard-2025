@@ -1,0 +1,56 @@
+/* ======================= Custom Dropdown: Styles ======================= */
+
+.custom-dropdown {
+  max-width: 40%;
+  min-width: 35%;
+  position: relative;
+  display: inline-block;
+  font-size: clamp(var(--min-font-size), 1.5vw, var(--max-font-size));
+  height: var(--min-button-size);
+  color: white;
+  font-family: inherit;
+}
+
+.custom-dropdown-toggle {
+  width: 100%;
+  background-color: #111;
+  color: white;
+  border: 1px solid #ccc;
+  padding: var(--spacing-sm);
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: inherit;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.custom-dropdown-toggle .arrow {
+  margin-left: var(--spacing-sm);
+}
+
+.custom-dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #111;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1000;
+  font-size: inherit;
+}
+
+.custom-dropdown-item {
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  color: white;
+}
+
+.custom-dropdown-item:hover,
+.custom-dropdown-item.selected {
+  background-color: #004aad;
+}

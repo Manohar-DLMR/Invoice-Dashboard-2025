@@ -1,0 +1,60 @@
+/* ======================= Loading and Error Common Styles ======================= */
+
+.loading-error-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  background-color: white;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #004aad;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-message {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: #555;
+  margin-top: 10px;
+}
+
+.error-message {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.back-button {
+  background-color: #004aad;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: clamp(var(--min-font-size), 1.4vw, var(--max-font-size));
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #00327a;
+}

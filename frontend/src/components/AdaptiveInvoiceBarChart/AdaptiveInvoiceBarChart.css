@@ -1,0 +1,75 @@
+/* ======================= Adaptive Invoice Bar Chart: Styles ======================= */
+
+.adaptive-bar-chart-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+}
+
+/* ======================= Header ======================= */
+
+.adaptive-bar-chart-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.adaptive-bar-chart-header h3 {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #004aad;
+  margin: 0;
+  text-align: center;
+}
+
+/* ======================= Toggle Button ======================= */
+
+.adaptive-bar-chart-toggle {
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+}
+
+/* ======================= Mini Summary Card ======================= */
+
+.adaptive-mini-summary {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #fafafa;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* ======================= Friendly Message ======================= */
+
+.adaptive-friendly-message {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #555;
+  margin: 8px 0 16px;
+}
+
+/* ======================= Chart Legend ======================= */
+
+.adaptive-chart-legend {
+  margin-top: 14px;
+  padding-top: 10px;
+  font-size: 0.85rem;
+  color: #666;
+  border-top: 1px solid #eee;
+  text-align: center;
+  line-height: 1.4;
+}

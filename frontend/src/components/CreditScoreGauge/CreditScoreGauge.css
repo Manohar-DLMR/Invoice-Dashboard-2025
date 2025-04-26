@@ -1,0 +1,89 @@
+/* ======================= Credit Score Gauge: Styles ======================= */
+
+.credit-gauge-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.credit-gauge-card h3 {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #004aad;
+  margin-bottom: 12px;
+}
+
+/* ======================= Gauge Visualization ======================= */
+
+.gauge-wrapper {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.needle {
+  position: absolute;
+  width: 2px;
+  height: 80px;
+  background: black;
+  top: 70px;
+  left: 149px;
+  transform-origin: bottom center;
+  transition: transform 0.5s ease;
+  z-index: 2;
+}
+
+.score-label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #444;
+  z-index: 3;
+}
+
+/* ======================= Additional Information ======================= */
+
+.credit-score-caption {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 1rem;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ======================= Legend ======================= */
+
+.credit-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-item span {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
