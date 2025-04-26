@@ -2,7 +2,7 @@
 
 // --- Dynamic BASE URL setup ---
 const BASE_URL = process.env.NODE_ENV === 'production'
-  ? ''   // Production backend URL
+  ? 'https://invoice-dashboard-2025.onrender.com'   // Production backend URL
   : 'http://127.0.0.1:5000';                          // Local Flask backend
 
 // --- API Functions ---
