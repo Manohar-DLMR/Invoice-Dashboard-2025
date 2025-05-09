@@ -45,11 +45,12 @@
 
 .invoice-main-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   grid-auto-flow: dense;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
   box-sizing: border-box;
+  overflow-x: visible;
 }
 
 @media (min-width: 800px) {
@@ -61,12 +62,6 @@
     max-width: 50vw;
     width: 100%;
     overflow-x: auto;
-  }
-}
-
-@media (max-width: 719px) {
-  .visualization-widget {
-    order: -1;
   }
 }
 
@@ -130,6 +125,7 @@
 .invoice-table-scroll-wrapper {
   overflow-x: auto;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .invoice-styled-table {
@@ -239,16 +235,42 @@
   box-sizing: border-box;
 }
 
+/* ======================= Responsive Adjustments ======================= */
+
+@media (max-width: 800px) {
+  .visualization-widget {
+    order: -1;
+  }
+
+  .invoice-main-content {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: var(--spacing-sm);
+  }
+
+  .invoice-widget {
+    background-color: transparent;
+    box-shadow: none;
+    padding: var(--spacing-sm);
+    overflow-x: auto;
+  }
+
+  .invoice-table-card {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+}
+
 /* ======================= Print Styles ======================= */
 
 @media print {
-  * {
-    break-before: avoid;
-  }
-
   @page {
     size: A4;
     margin: 1in;
+  }
+
+  * {
+    break-before: avoid;
   }
 
   .invoice-top-controls,
@@ -271,17 +293,21 @@
     grid-auto-flow: row;
     gap: var(--spacing-md);
     padding: var(--spacing-md);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
 
   .invoice-widget,
   .visualization-widget {
-    width: 100%;
-    max-width: 100%;
-    padding: var(--spacing-lg);
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: var(--spacing-md);
+    background: transparent;
+    box-shadow: none;
+    padding: var(--spacing-sm);
+    overflow-x: auto;
+  }
+
+  .invoice-table-card {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
 
   .visualization-widget {

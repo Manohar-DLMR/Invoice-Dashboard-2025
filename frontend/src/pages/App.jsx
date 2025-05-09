@@ -3,13 +3,17 @@
 // --- Imports ---
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { fetchClients, fetchInvoicesByClient } from '../api/api';
-import CustomDropdown from '../components/CustomDropdown/CustomDropdown';
-import AdaptiveInvoiceBarChart from '../components/AdaptiveInvoiceBarChart/AdaptiveInvoiceBarChart';
-import AvgDaysToPayTrendLine from '../components/AvgDaysToPayTrendLine/AvgDaysToPayTrendLine';
-import CreditScoreGauge from '../components/CreditScoreGauge/CreditScoreGauge';
-import LoadingOrError from '../components/LoadingOrError/LoadingOrError'; 
+import LoadingOrError from '../components/LoadingOrError/LoadingOrError';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Spinner from '../components/Spinner/Spinner';
 import './App.css';
+
+const AdaptiveInvoiceBarChart = lazy(() => import('../components/AdaptiveInvoiceBarChart/AdaptiveInvoiceBarChart'));
+const AvgDaysToPayTrendLine = lazy(() => import('../components/AvgDaysToPayTrendLine/AvgDaysToPayTrendLine'));
+const CreditScoreGauge = lazy(() => import('../components/CreditScoreGauge/CreditScoreGauge'));
+const CustomDropdown = lazy(() => import('../components/CustomDropdown/CustomDropdown'));
 
 // --- Utility Functions ---
 
@@ -53,6 +57,7 @@ function App() {
   const [clients, setClients] = useState([]);
   const [allClients, setAllClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState('');
+  const [invoicesLoading, setInvoicesLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [useSearch, setUseSearch] = useState(false);
@@ -124,7 +129,6 @@ function App() {
       } catch (error) {
         logError(error);
         setError('Failed to load clients. Please try again later.');
-        setLoading(false);
       }
     };
     loadClients();
@@ -143,6 +147,7 @@ function App() {
 
   useEffect(() => {
     if (!selectedClient) return;
+    setInvoicesLoading(true);
     fetchInvoicesByClient(selectedClient)
       .then(data => {
         setAllInvoices(data);
@@ -163,6 +168,9 @@ function App() {
       .catch(error => {
         logError(error);
         setError('Failed to load invoices. Please try again later.');
+      })
+      .finally(() => {
+        setInvoicesLoading(false);
       });
   }, [selectedClient, filters]);
 
@@ -170,7 +178,7 @@ function App() {
     const minHeight = 500;
     const maxHeight = 1200;
     const minRows = 5;
-    const maxRows = 20;
+    const maxRows = 12;
     const clampedHeight = Math.min(Math.max(height, minHeight), maxHeight);
     const scale = (clampedHeight - minHeight) / (maxHeight - minHeight);
     return Math.round(minRows + scale * (maxRows - minRows));
@@ -256,7 +264,7 @@ function App() {
 
   if (loading) {
     return <LoadingOrError loading={true} error="" showBackButton={false} />;
-  }  
+  }
 
   return (
     <div className="dashboard-wrapper">
@@ -280,17 +288,19 @@ function App() {
             </div>
             <div className="dashboard-search-toggle-group">
               {!useSearch ? (
-                <CustomDropdown options={clients} value={selectedClient} onChange={(val) => {
-                  if (val !== selectedClient) {
-                    clearAllFilters(true); // Clear filters properly
-                    setCurrentPage(1);      // Reset page to 1
-                    localStorage.setItem('currentPage', '1');
-                  }
-                  setSelectedClient(val);
-                  setSearchInput(val);
-                  localStorage.setItem('selectedClient', val);
-                  setError('');
-                }} />                
+                <Suspense fallback={<Spinner size={36} />}>
+                  <CustomDropdown options={clients} value={selectedClient} onChange={(val) => {
+                    if (val !== selectedClient) {
+                      clearAllFilters(true); // Clear filters properly
+                      setCurrentPage(1);      // Reset page to 1
+                      localStorage.setItem('currentPage', '1');
+                    }
+                    setSelectedClient(val);
+                    setSearchInput(val);
+                    localStorage.setItem('selectedClient', val);
+                    setError('');
+                  }} />
+                </Suspense>           
               ) : (
                 <input
                   type="text"
@@ -369,11 +379,11 @@ function App() {
             </div>
           )}
 
-          {error && <p className="dashboard-error-msg">{error}</p>}
+          {!loading && error && <p className="dashboard-error-msg">{error}</p>}
 
           {clients.length === 0 ? (
             <p className="dashboard-error-msg">No clients found with the selected statuses.</p>
-          ) : filteredInvoices.length === 0 ? (
+          ) : invoicesLoading ? null : filteredInvoices.length === 0 ? (
             <p className="dashboard-error-msg">
               {selectedClient
                 ? `Client ${selectedClient?.split(' ')[1]} has no invoices under selected filter(s)`
@@ -419,9 +429,25 @@ function App() {
           )}
         </div>
 
-        <div className="dashboard-widget"><AdaptiveInvoiceBarChart invoices={filteredInvoices} /></div>
-        <div className="dashboard-widget"><AvgDaysToPayTrendLine invoices={filteredInvoices} /></div>
-        <div className="dashboard-widget"><CreditScoreGauge invoices={allInvoices} /></div>
+        <div className="dashboard-widget">
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner size={36} />}>
+              <AdaptiveInvoiceBarChart invoices={filteredInvoices} />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+
+        <div className="dashboard-widget"><ErrorBoundary>
+          <Suspense fallback={<Spinner size={36} />}>
+            <AvgDaysToPayTrendLine invoices={filteredInvoices} />
+          </Suspense></ErrorBoundary>
+        </div>
+
+        <div className="dashboard-widget"><ErrorBoundary>
+          <Suspense fallback={<Spinner size={36} />}>
+            <CreditScoreGauge invoices={allInvoices} />
+          </Suspense></ErrorBoundary>
+        </div>
       </div>
       {/* Footer Section */}
       <footer className="dashboard-footer">

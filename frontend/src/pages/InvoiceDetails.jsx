@@ -4,10 +4,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchInvoiceDetailsByGroupId } from '../api/api';
-import InvoicePaymentCompletionCircle from '../components/InvoicePaymentCompletionCircle/InvoicePaymentCompletionCircle';
-import InvoicePaymentTimeline from '../components/InvoicePaymentTimeline/InvoicePaymentTimeline';
+import { lazy, Suspense } from 'react';
 import LoadingOrError from '../components/LoadingOrError/LoadingOrError';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Spinner from '../components/Spinner/Spinner';
 import './InvoiceDetails.css';
+
+const InvoicePaymentCompletionCircle = lazy(() => import('../components/InvoicePaymentCompletionCircle/InvoicePaymentCompletionCircle'));
+const InvoicePaymentTimeline = lazy(() => import('../components/InvoicePaymentTimeline/InvoicePaymentTimeline'));
 
 // --- Main Component ---
 
@@ -165,8 +169,12 @@ function InvoiceDetails() {
 
         {/* Visualization Widgets */}
         <div className="invoice-widget visualization-widget">
-          <InvoicePaymentCompletionCircle paid={totalPaid} total={invoiceAmount} status={status} />
-          <InvoicePaymentTimeline details={details} status={status} pending={pending} />
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner size={36} />}><InvoicePaymentCompletionCircle paid={totalPaid} total={invoiceAmount} status={status} /></Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<Spinner size={36} />}><InvoicePaymentTimeline details={details} status={status} pending={pending} /></Suspense>
+          </ErrorBoundary>
         </div>
       </div>
     </div>

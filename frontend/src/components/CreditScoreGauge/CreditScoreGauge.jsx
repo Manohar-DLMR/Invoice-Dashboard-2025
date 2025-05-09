@@ -2,7 +2,7 @@
 
 // --- Imports ---
 import React, { useMemo } from 'react';
-import { PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import './CreditScoreGauge.css';
 
 // --- Constants ---
@@ -47,23 +47,25 @@ export default function CreditScoreGauge({ invoices }) {
     <div className="credit-gauge-card">
       <h3>🏦 Credit Score Overview</h3>
       <div className="gauge-wrapper">
-        <PieChart width={300} height={150}>
-          <Pie
-            startAngle={180}
-            endAngle={0}
-            data={scoreRanges}
-            dataKey="value"
-            cx="50%"
-            cy="100%"
-            innerRadius={60}
-            outerRadius={80}
-            stroke="none"
-          >
-            {scoreRanges.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
-            ))}
-          </Pie>
-        </PieChart>
+        <ResponsiveContainer width="100%" aspect={2}>
+          <PieChart>
+            <Pie
+              startAngle={180}
+              endAngle={0}
+              data={scoreRanges}
+              dataKey="value"
+              cx="50%"
+              cy="100%"
+              innerRadius="85%"
+              outerRadius="110%"
+              stroke="none"
+            >
+              {scoreRanges.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
         <div className="needle" style={{ transform: `rotate(${angle}deg)` }} />
         <div className="score-label">{score}</div>
       </div>
