@@ -89,6 +89,14 @@ It enables companies to view, filter, track, and analyze payment patterns dynami
 
 ---
 
+## 📄 Full Project Documentation
+
+For a complete breakdown of preprocessing, backend API logic, frontend implementation, lazy loading, error handling, and QA validation:
+
+📘 [Invoice-Dashboard-2025_Documentation.pdf](./Invoice-Dashboard-2025_Documentation.pdf)
+
+---
+
 ## 🚀 Deployment Links
 
 | Item | Link |
